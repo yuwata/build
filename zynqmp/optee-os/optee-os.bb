@@ -35,8 +35,8 @@ AS[unexport] = "1"
 LD[unexport] = "1"
 
 DEBUG ??= "0"
-TA_DEV_KIT_DIR = "${TMPDIR}/deploy/images/${MACHINE}/optee/export-ta_arm64"
-OUTPUT_DIR = "${S}/out/arm-plat-zynqmp"
+TA_DEV_KIT_DIR = "${TMPDIR}/deploy/images/${MACHINE}/optee/export-ta_arm32"
+OUTPUT_DIR = "${S}/out/arm-plat-zynq7k"
 TEE_LOG_LEVEL = "${@bb.utils.contains('DEBUG', '1', '3', '2', d)}"
 TEE_CORE_DEBUG = "${@bb.utils.contains('DEBUG', '1', 'y', 'n', d)}"
 
@@ -44,17 +44,17 @@ EXTRA_OEMAKE_append = " comp-cflagscore=--sysroot=${STAGING_DIR_HOST}"
 EXTRA_OEMAKE_append = " CROSS_COMPILE=${CROSS_COMPILE}"
 EXTRA_OEMAKE_append = " CROSS_COMPILE_core=${CROSS_COMPILE}"
 EXTRA_OEMAKE_append = " CROSS_COMPILE_ta_arm64=${CROSS_COMPILE}"
-EXTRA_OEMAKE_append = " PLATFORM=zynqmp"
-EXTRA_OEMAKE_append = " CFG_ARM64_core=y"
-EXTRA_OEMAKE_append = " CFG_ARM32_core=n"
-EXTRA_OEMAKE_append = " CFG_USER_TA_TARGETS=ta_arm64"
+EXTRA_OEMAKE_append = " PLATFORM=zynq7k"
+EXTRA_OEMAKE_append = " CFG_ARM64_core=n"
+EXTRA_OEMAKE_append = " CFG_ARM32_core=y"
+EXTRA_OEMAKE_append = " CFG_USER_TA_TARGETS=ta_arm32"
 EXTRA_OEMAKE_append = " CFG_TEE_CORE_LOG_LEVEL=${TEE_LOG_LEVEL}"
 EXTRA_OEMAKE_append = " CFG_TEE_CORE_DEBUG=${TEE_CORE_DEBUG}"
 EXTRA_OEMAKE_append = " DEBUG=${DEBUG}"
 
 do_install() {
 	install -d ${TA_DEV_KIT_DIR}
-	cp -aR ${OUTPUT_DIR}/export-ta_arm64/* ${TA_DEV_KIT_DIR}
+	cp -aR ${OUTPUT_DIR}/export-ta_arm32/* ${TA_DEV_KIT_DIR}
 }
 
 do_deploy() {

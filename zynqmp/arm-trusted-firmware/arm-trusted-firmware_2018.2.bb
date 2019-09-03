@@ -26,8 +26,8 @@ SRC_URI = "${REPO};${BRANCHARG}"
 ATF_BASE_NAME ?= "${PN}-${PKGE}-${PKGV}-${PKGR}-${DATETIME}"
 ATF_BASE_NAME[vardepsexclude] = "DATETIME"
 
-COMPATIBLE_MACHINE = "zynqmp"
-PLATFORM_zynqmp = "zynqmp"
+COMPATIBLE_MACHINE = "zynq7k"
+PLATFORM_zynq7k = "zynq7k"
 
 # requires CROSS_COMPILE set by hand as there is no configure script
 export CROSS_COMPILE="${TARGET_PREFIX}"
@@ -39,10 +39,10 @@ AS[unexport] = "1"
 LD[unexport] = "1"
 
 ATF_CONSOLE ?= ""
-ATF_CONSOLE_zynqmp = "cadence"
+ATF_CONSOLE_zynq7k = "cadence"
 
 DEBUG ?= ""
-EXTRA_OEMAKE_zynqmp_append = "${@' ZYNQMP_CONSOLE=${ATF_CONSOLE}' if d.getVar('ATF_CONSOLE', True) != '' else ''}"
+EXTRA_OEMAKE_zynq7k_append = "${@' ZYNQMP_CONSOLE=${ATF_CONSOLE}' if d.getVar('ATF_CONSOLE', True) != '' else ''}"
 EXTRA_OEMAKE_append = " ${@bb.utils.contains('DEBUG', '1', ' DEBUG=${DEBUG}', '', d)}"
 
 OUTPUT_DIR = "${@bb.utils.contains('DEBUG', '1', '${B}/${PLATFORM}/debug', '${B}/${PLATFORM}/release', d)}"
@@ -50,8 +50,8 @@ OUTPUT_DIR = "${@bb.utils.contains('DEBUG', '1', '${B}/${PLATFORM}/debug', '${B}
 ATF_MEM_BASE ?= ""
 ATF_MEM_SIZE ?= ""
 
-EXTRA_OEMAKE_zynqmp_append = "${@' ZYNQMP_ATF_MEM_BASE=${ATF_MEM_BASE}' if d.getVar('ATF_MEM_BASE', True) != '' else ''}"
-EXTRA_OEMAKE_zynqmp_append = "${@' ZYNQMP_ATF_MEM_SIZE=${ATF_MEM_SIZE}' if d.getVar('ATF_MEM_SIZE', True) != '' else ''}"
+EXTRA_OEMAKE_zynq7k_append = "${@' ZYNQMP_ATF_MEM_BASE=${ATF_MEM_BASE}' if d.getVar('ATF_MEM_BASE', True) != '' else ''}"
+EXTRA_OEMAKE_zynq7k_append = "${@' ZYNQMP_ATF_MEM_SIZE=${ATF_MEM_SIZE}' if d.getVar('ATF_MEM_SIZE', True) != '' else ''}"
 
 do_configure() {
 	oe_runmake clean -C ${S} BUILD_BASE=${B} PLAT=${PLATFORM}

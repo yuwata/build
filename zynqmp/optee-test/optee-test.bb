@@ -19,14 +19,14 @@ SRC_URI = "${REPO};branch=${BRANCH}"
 # requires CROSS_COMPILE set by hand as there is no configure script
 export CROSS_COMPILE="${TARGET_PREFIX}"
 
-TA_DEV_KIT_DIR = "${TMPDIR}/deploy/images/${MACHINE}/optee/export-ta_arm64"
+TA_DEV_KIT_DIR = "${TMPDIR}/deploy/images/${MACHINE}/optee/export-ta_arm32"
 OPTEE_CLIENT_EXPORT = "${TMPDIR}/deploy/images/${MACHINE}/optee/export_client"
 
 EXTRA_OEMAKE_append = " CROSS_COMPILE=${CROSS_COMPILE}"
 EXTRA_OEMAKE_append = " CROSS_COMPILE_TA=${CROSS_COMPILE}"
 EXTRA_OEMAKE_append = " TA_DEV_KIT_DIR=${TA_DEV_KIT_DIR}"
 EXTRA_OEMAKE_append = " OPTEE_CLIENT_EXPORT=${OPTEE_CLIENT_EXPORT}"
-EXTRA_OEMAKE_append = " COMPILE_NS_USER=64"
+EXTRA_OEMAKE_append = " COMPILE_NS_USER=32"
 
 do_install() {
 	install -d ${D}/lib/optee_armtz
